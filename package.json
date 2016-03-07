@@ -1,7 +1,7 @@
 {
   "name": "tradie-plugin-serve",
   "main": "./dist/index.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A tradie plugin for serving files while watching.",
   "keywords": [
     "tradie",

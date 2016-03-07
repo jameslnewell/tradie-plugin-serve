@@ -38,11 +38,11 @@ export default function(tradie, config) {
         //TODO: use express-http-proxy or http-proxy-middleware to proxy requests to an API and avoid CORS
 
         //start the server when we start watching
-        server.start(() => debug('Server started')); //TODO: handle errors
+        server.start(() => dbg('Server started')); //TODO: handle errors
 
         //stop the server when we stop watching
         tradie.once('command.finished', () => {
-          server.stop(() => debug('Server stopped')); //TODO: handle errors
+          server.stop(() => dbg('Server stopped')); //TODO: handle errors
         });
 
         break;
