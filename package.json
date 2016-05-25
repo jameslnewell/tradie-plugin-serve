@@ -1,7 +1,7 @@
 {
   "name": "tradie-plugin-serve",
   "main": "./dist/index.js",
-  "version": "0.1.2",
+  "version": "0.2.0-preview.1",
   "description": "A tradie plugin for serving files while watching.",
   "keywords": [
     "tradie",
@@ -22,7 +22,8 @@
     "babel-preset-es2015": "^6.5.0"
   },
   "scripts": {
+    "clean": "rm -rf ./dist",
     "build": "babel index.js -d ./dist",
-    "prepublish": "npm run build"
+    "prepublish": "npm run clean && npm run build"
   }
 }

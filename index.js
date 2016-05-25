@@ -23,7 +23,7 @@ export default function(tradie, config) {
       case 'bundle-styles':
 
         //configure the defaults
-        const dir = config.public || tradie.config.scripts.dest;
+        const dir = config.public || tradie.config.dest;
         const host = config.host || undefined;
         const port = config.port || 5000;
 
