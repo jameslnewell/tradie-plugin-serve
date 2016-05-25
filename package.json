@@ -13,6 +13,9 @@
     "type": "git",
     "url": "git@github.com:jameslnewell/tradie-plugin-serve.git"
   },
+  "peerDependencies": {
+    "tradie": "^1.0.0"
+  },
   "dependencies": {
     "debug": "^2.2.0",
     "spa-server": "^1.0.0"
