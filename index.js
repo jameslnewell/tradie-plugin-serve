@@ -4,53 +4,45 @@ import factory from 'spa-server';
 const dbg = debug('tradie-plugin-serve');
 
 /**
- * A plugin that adds file serving to Tradie
- * @param {tradie} tradie
- * @param {object} config
+ * A plugin that adds file serving to tradie
+ * @param {object} options
  */
-export default function(tradie, config) {
-  tradie.once('command.started', cmd => {
+export default (options = {}) => tradie => {
+  const {host, port = 5000} = options;
 
+  const init = cmd => {
+
+    //only run the server while we're watching
     if (!cmd.args.watch) {
       return;
     }
 
-    switch (cmd.name) {
-
-      case 'build':
-      case 'bundle':
-      case 'bundle-scripts':
-      case 'bundle-styles':
-
-        //configure the defaults
-        const dir = config.public || tradie.config.dest;
-        const host = config.host || undefined;
-        const port = config.port || 5000;
-
-        //configure the server
-        const server = factory.create({
-          path: dir,
-          verbose: false,
-          host,
-          port,
-          fallback: '/index.html'
-        });
-        //TODO: use express-http-proxy or http-proxy-middleware to proxy requests to an API and avoid CORS
-
-        //start the server when we start watching
-        server.start(() => dbg('Server started')); //TODO: handle errors
-
-        //stop the server when we stop watching
-        tradie.once('command.finished', () => {
-          server.stop(() => dbg('Server stopped')); //TODO: handle errors
-        });
-
-        break;
-
-      default:
-        break;
-
+    //only run the server while we're building
+    if (cmd.name !== 'build') {
+      return;
     }
 
-  });
+    //configure the server
+    const server = factory.create({
+      path: tradie.config.dest,
+      verbose: false,
+      host,
+      port,
+      fallback: '/index.html'
+    });
+    //TODO: use express-http-proxy or http-proxy-middleware to proxy requests to an API and avoid CORS
+
+    //start the server when we start watching
+    server.start(() => dbg(`Server started on http://${host ? host : 'localhost'}:${port}`)); //TODO:
+    // handle
+    // errors
+
+    //stop the server when we stop watching
+    tradie.once('command.finished', () => {
+      server.stop(() => dbg('Server stopped')); //TODO: handle errors
+    });
+
+  };
+
+  tradie.once('command.started', init);
 };

@@ -1,6 +1,6 @@
 # tradie-plugin-serve
 
-A tradie plugin for serving files while watching.
+A `tradie` plugin for serving files while building+watching.
 
 ## Installation
 
@@ -8,16 +8,19 @@ A tradie plugin for serving files while watching.
 
 ## Usage
 
-1. Configure `.tradierc`:
+1. Configure `tradie.config.js`:
 
-  ```json
-  {
-    "plugins": [["serve", {
-      "host": "0.0.0.0",
-      "port": 5000,
-      "directory": "./dist"
-    }]]
-  }
-  ```
+```js
+var serve = require('tradie-plugin-serve').default;
+
+module.exports = {
+  plugins: [
+    serve({
+      host: '0.0.0.0',
+      port: 5000,
+    })
+  ]
+};
+```
 
 2. Run `tradie build --watch` and navigate to `http://localhost:5000`.
