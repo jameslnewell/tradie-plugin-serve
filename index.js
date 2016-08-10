@@ -33,13 +33,13 @@ export default (options = {}) => tradie => {
     //TODO: use express-http-proxy or http-proxy-middleware to proxy requests to an API and avoid CORS
 
     //start the server when we start watching
-    server.start(() => dbg(`Server started on http://${host ? host : 'localhost'}:${port}`)); //TODO:
+    server.start(() => dbg(`Started server at http://${host ? host : 'localhost'}:${port}`)); //TODO:
     // handle
     // errors
 
     //stop the server when we stop watching
     tradie.once('command.finished', () => {
-      server.stop(() => dbg('Server stopped')); //TODO: handle errors
+      server.stop(() => dbg(`Stopped server at http://${host ? host : 'localhost'}:${port}`)); //TODO: handle errors
     });
 
   };
