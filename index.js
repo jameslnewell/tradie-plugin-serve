@@ -36,7 +36,7 @@ export default (options = {}) => tradie => {
   // errors
 
   //stop the server when we stop watching
-  tradie.once('command.finished', () => {
+  tradie.once('exit', () => {
     server.stop(() => dbg(`Stopped server at http://${host ? host : 'localhost'}:${port}`)); //TODO: handle errors
   });
 
